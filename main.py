@@ -42,7 +42,7 @@ df = df.drop(columns=['Key'])
 df = df[['Quarter', 'GDP']]
 print("Quarter - GDP dataframe:\n", df)
 
-
+'''
 # plot Greek GDP
 fig, ax = plt.subplots()
 ax.plot(df["Quarter"], df["GDP"], linestyle="--", marker="o")
@@ -53,7 +53,7 @@ ax.set_xlabel("Year-Quarter", fontweight='bold')
 ax.set_ylabel("GDP (million €)", fontweight='bold')
 ax.xaxis.set_major_locator(MultipleLocator(7))
 
-# plt.show()
+# plt.show()'''
 
 # convert quarter column to datetime
 df['Quarter'] = pd.to_datetime(df['Quarter'])
@@ -66,16 +66,37 @@ print("\nIndexed df :\n", df)
 
 # resample quarterly GDP data to monthly level
 df_resampled = df.resample('M').ffill()
+df_resampled["Month"] = df_resampled.index
+df_resampled = df_resampled[["Quarter", "Month", "GDP"]]
 print("\nResampled df :\n", df_resampled)
 
+'''
 # plot Greek GDP
 fig2, ax2 = plt.subplots()
-ax2.plot(df_resampled["Quarter"], df["GDP"], linestyle="--", marker="o")
-# first_year = min(df["Quarter"])
-# last_year = max(df["Quarter"])
-# ax.set_title(f"Greek GDP in million € from {first_year} until {last_year}", fontweight="bold")
-ax2.set_xlabel("Year-Quarter2", fontweight='bold')
-ax2.set_ylabel("GDP (million €)2", fontweight='bold')
+ax2.plot(df_resampled["Month"], df_resampled["GDP"], linestyle="--", marker="o")
+first_point = min(df_resampled["Month"]).strftime('%m/%Y')
+last_point = max(df_resampled["Month"]).strftime('%m/%Y')
+ax2.set_title(f"Greek GDP in € million from {first_point} until {last_point}", fontweight="bold")
+ax2.set_xlabel("Month", fontweight='bold')
+ax2.set_ylabel("GDP (€ million)", fontweight='bold')
 # ax.xaxis.set_major_locator(MultipleLocator(7))
 
+plt.show()'''
+
+
+fig, ax = plt.subplots(2)
+ax[0].plot(df["Quarter"], df["GDP"], linestyle="--", marker="o")
+ax[1].plot(df_resampled["Month"], df_resampled["GDP"], linestyle="--", marker="o")
+first_point = min(df_resampled["Month"]).strftime('%m/%Y')
+last_point = max(df_resampled["Month"]).strftime('%m/%Y')
+# ax[0].set_title(f"Greek GDP in € million from {first_point} until {last_point}", fontweight="bold")
+fig.suptitle(f"Greek GDP in € million from {first_point} until {last_point}", fontweight="bold")
+ax[0].set_xlabel("Quarter", fontweight='bold')
+ax[0].set_ylabel("GDP (€ million)", fontweight='bold')
+ax[1].set_xlabel("Month", fontweight='bold')
+ax[1].set_ylabel("GDP (€ million)", fontweight='bold')
+# ax[0].xaxis.set_major_locator(MultipleLocator(7))
+
 plt.show()
+
+# print('\nmax : ', max(df_resampled["Month"]))
