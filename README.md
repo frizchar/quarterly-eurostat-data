@@ -1,4 +1,4 @@
-# quarterly Eurostat data
+# Quarterly Eurostat Data
 ### Overview
 Pulls quarterly Greek GDP data from the Eurostat API and converts it to monthly.
 
