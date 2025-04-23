@@ -7,3 +7,4 @@ The required packages are included in file ```requirements.txt```.<br>
 Python interpreter version used for this project: **3.9.4**
 
 ### Results
+![git_eurostat.jpg](https://github.com/frizchar/quarterly-eurostat-data/blob/main/git_eurostat.JPG)
